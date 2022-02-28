@@ -1,0 +1,16 @@
+grafana:
+    enabled: false
+
+prometheus:
+    enabled: true
+    alertmanager:
+        persistentVolume:
+            enabled: false
+    server:
+        persistentVolume:
+            enabled: false
+loki:
+    persistence:
+        enabled: true,
+        storageClassName: gp2
+        size: ${loki_storage}Gi
