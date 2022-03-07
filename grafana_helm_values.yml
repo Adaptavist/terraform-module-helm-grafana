@@ -1,0 +1,70 @@
+nameOverride: ${grafana_label}
+alertmanager:
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: ${alertmanager_storage}Gi
+
+prometheus:
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: ${prometheus_storage}Gi
+
+
+grafana:
+  adminPassword: ${admin_password}
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://${grafana_label}-loki:3100
+      jsonData:
+        maxLines: 1000
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+      alb.ingress.kubernetes.io/certificate-arn: ${acm_cert_arn}
+      alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    labels: {}
+    path: /
+    extraPaths: []
+    tls: []
+    hosts:
+      - ${grafana_host_name}
+  service:
+    annotations:
+      alb.ingress.kubernetes.io/target-type: ip
+  grafana.ini:
+    server:
+      root_url:  https://${grafana_host_name}
+      domain: ${grafana_host_name}
+      port: 443
+    auth:
+      signout_redirect_url: https://${grafana_host_name}
+      disable_login_form: false
+    auth.okta:
+      enabled: true
+      name: Okta
+      icon: okta
+      allow_sign_up: true
+      client_id: ${okta_client_id}
+      client_secret: ${okta_client_secret}
+      scopes: openid profile email groups
+      auth_url: https://adaptavist.okta.com/oauth2/v1/authorize
+      token_url: https://adaptavist.okta.com/oauth2/v1/token
+      api_url: https://adaptavist.okta.com/oauth2/v1/userinfo
+      role_attribute_path: contains(groups[*], '${okta_admin_group}') && 'Admin' || 'Viewer'
