@@ -65,3 +65,4 @@ Grafana also uses Okta for its authorisation and authentication.
 | Name | Description |
 |------|-------------|
 | grafana\_url | n/a |
+
