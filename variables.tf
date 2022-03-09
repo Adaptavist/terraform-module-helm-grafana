@@ -27,7 +27,7 @@ variable "loki_chart_version" {
 }
 
 variable "admin_okta_groups" {
-  default = ["AWSPlatformEksAdmin"]
+  default = []
   type    = list(string)
   description = "Okta group which will get admin access to the grafana instance. Only groups that start 'AWS' can be used at this stage."
 }
