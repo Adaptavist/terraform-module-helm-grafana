@@ -5,4 +5,4 @@ plugins:
 - "@semantic-release/release-notes-generator"
 - "@semantic-release/git"
 - - "@semantic-release/exec"
-  - successCmd: git push --mirror git@github.com:Adaptavist/terraform-module-helm-grafana-helm.git
+  - successCmd: git push --mirror git@github.com:Adaptavist/terraform-module-helm-grafana.git
