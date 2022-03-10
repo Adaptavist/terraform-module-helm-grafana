@@ -55,7 +55,7 @@ grafana:
       port: 443
     auth:
       signout_redirect_url: https://${grafana_host_name}
-      disable_login_form: false
+      disable_login_form: true
     auth.okta:
       enabled: true
       name: Okta
