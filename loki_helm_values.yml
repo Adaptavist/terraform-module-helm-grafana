@@ -9,3 +9,5 @@ loki:
         enabled: true,
         storageClassName: gp2
         size: ${loki_storage}Gi
+
+        
