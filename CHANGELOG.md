@@ -1,3 +1,10 @@
+## [1.1.1](http://bitbucket.org/adaptavistlabs/module-helm-grafana/compare/v1.1.0...v1.1.1) (2022-03-11)
+
+
+### Bug Fixes
+
+* fixed issue with group assignments ([60d29b1](http://bitbucket.org/adaptavistlabs/module-helm-grafana/commits/60d29b1a213e5c7933144083f1291294a57ebeb4))
+
 # [1.1.0](http://bitbucket.org/adaptavistlabs/module-helm-grafana/compare/v1.0.0...v1.1.0) (2022-03-10)
 
 
