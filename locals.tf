@@ -10,11 +10,11 @@ locals {
     okta_client_id       = okta_app_oauth.app.client_id
     okta_client_secret   = okta_app_oauth.app.client_secret
     okta_admin_group     = okta_group.admins.name
-    grafana_label     = local.grafana_label
+    grafana_label        = local.grafana_label
   }
   loki_helm_vars = {
     loki_storage = var.loki_storage
   }
   grafana_helm_values = templatefile("${path.module}/grafana_helm_values.yml", local.grafana_helm_vars)
-  loki_helm_values = templatefile("${path.module}/loki_helm_values.yml", local.loki_helm_vars)
+  loki_helm_values    = templatefile("${path.module}/loki_helm_values.yml", local.loki_helm_vars)
 }

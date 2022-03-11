@@ -9,5 +9,5 @@ resource "helm_release" "grafana" {
   recreate_pods    = true
   lint             = true
   wait_for_jobs    = true
-  values = [local.grafana_helm_values]
+  values           = [local.grafana_helm_values]
 }

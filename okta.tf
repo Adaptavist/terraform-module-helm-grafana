@@ -7,10 +7,10 @@ resource "okta_app_oauth" "app" {
   redirect_uris             = ["https://${local.grafana_domain}/login/okta"]
 
   groups_claim {
-    type = "FILTER"
+    type        = "FILTER"
     filter_type = "REGEX"
-    name = "groups"
-    value = "${local.grafana_label}.*"
+    name        = "groups"
+    value       = "${local.grafana_label}.*"
   }
 }
 
@@ -24,19 +24,15 @@ resource "okta_group" "viewers" {
   description = "Group of users with read permissons to the grafana instance '${local.grafana_label}'"
 }
 
-resource "okta_app_group_assignments" "admins" {
+resource "okta_app_group_assignments" "assignments" {
   app_id = okta_app_oauth.app.id
   group {
     id       = okta_group.admins.id
     priority = 1
   }
-}
-
-resource "okta_app_group_assignments" "viewers" {
-  app_id = okta_app_oauth.app.id
   group {
     id       = okta_group.viewers.id
-    priority = 1
+    priority = 2
   }
 }
 

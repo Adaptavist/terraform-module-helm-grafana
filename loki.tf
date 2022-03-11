@@ -9,5 +9,5 @@ resource "helm_release" "loki" {
   recreate_pods    = true
   lint             = true
   wait_for_jobs    = true
-  values = [local.loki_helm_values]
+  values           = [local.loki_helm_values]
 }
